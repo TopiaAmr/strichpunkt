@@ -6,10 +6,15 @@ import 'package:strichpunkt/features/user_profiles/domain/entities/user_profile.
 import 'package:strichpunkt/features/user_profiles/domain/repositories/user_profile_repository.dart';
 import 'package:strichpunkt/features/user_profiles/domain/usecases/get_user_profile.dart';
 
-// Generate mock
+/// Generate mock for the [UserProfileRepository].
 @GenerateMocks([UserProfileRepository])
 import 'get_user_profile_test.mocks.dart';
 
+/// Tests for the [GetUserProfilesUsecase] class.
+///
+/// These tests verify that the use case:
+/// - Correctly forwards calls to the repository
+/// - Returns the expected data from the repository
 void main() {
   late GetUserProfilesUsecase usecase;
   late MockUserProfileRepository mockRepository;
@@ -34,6 +39,7 @@ void main() {
     ),
   ];
 
+  /// Tests that the use case correctly calls the repository and returns its result.
   test('should get user profiles from the repository', () async {
     // Arrange
     when(mockRepository.getUserProfile())

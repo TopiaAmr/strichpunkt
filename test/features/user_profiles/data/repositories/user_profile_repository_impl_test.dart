@@ -9,10 +9,16 @@ import 'package:strichpunkt/features/user_profiles/data/datasources/user_profile
 import 'package:strichpunkt/features/user_profiles/data/repositories/user_profile_repository_impl.dart';
 import 'package:strichpunkt/features/user_profiles/domain/entities/user_profile.dart';
 
-// Generate mocks
+/// Generate mocks for the dependencies of [UserProfileRepositoryImpl].
 @GenerateMocks([UserProfileRemoteDataSource, UserProfileLocalDataSource, NetworkInfo])
 import 'user_profile_repository_impl_test.mocks.dart';
 
+/// Tests for the [UserProfileRepositoryImpl] class.
+///
+/// These tests verify that the repository:
+/// - Checks network connectivity before fetching data
+/// - Returns remote data when online
+/// - Returns appropriate errors when offline or when remote calls fail
 void main() {
   late UserProfileRepositoryImpl repository;
   late MockUserProfileRemoteDataSource mockRemoteDataSource;
@@ -47,6 +53,7 @@ void main() {
   ];
 
   group('getUserProfile', () {
+    /// Tests that the repository checks if the device is online before proceeding.
     test('should check if the device is online', () async {
       // Arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -65,6 +72,8 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
 
+      /// Tests that the repository returns remote data when the device is online
+      /// and the remote data source call is successful.
       test('should return remote data when the call to remote data source is successful', () async {
         // Arrange
         when(mockRemoteDataSource.getUserProfiles())
@@ -78,6 +87,8 @@ void main() {
         expect(result, equals(Right(tUserProfiles)));
       });
 
+      /// Tests that the repository returns a server failure when the device is online
+      /// but the remote data source call fails.
       test('should return server failure when the call to remote data source is unsuccessful', () async {
         // Arrange
         when(mockRemoteDataSource.getUserProfiles())
@@ -101,6 +112,7 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
       });
 
+      /// Tests that the repository returns a network error when the device is offline.
       test('should return a network error when device is offline', () async {
         // Act
         final result = await repository.getUserProfile();

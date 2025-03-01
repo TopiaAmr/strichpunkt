@@ -9,10 +9,16 @@ import 'package:strichpunkt/features/user_profiles/domain/usecases/get_user_prof
 import 'package:strichpunkt/features/user_profiles/presentation/cubits/get_user_profiles_cubit.dart';
 import 'package:strichpunkt/features/user_profiles/presentation/cubits/get_user_profiles_state.dart';
 
-// Generate mock
+/// Generate mock for the [GetUserProfilesUsecase].
 @GenerateMocks([GetUserProfilesUsecase])
 import 'get_user_profiles_cubit_test.mocks.dart';
 
+/// Tests for the [GetUserProfilesCubit] class.
+///
+/// These tests verify that the cubit:
+/// - Has the correct initial state
+/// - Emits the expected states when loading profiles successfully
+/// - Emits the expected states when an error occurs
 void main() {
   late GetUserProfilesCubit cubit;
   late MockGetUserProfilesUsecase mockUsecase;
@@ -26,6 +32,7 @@ void main() {
     cubit.close();
   });
 
+  /// Tests that the initial state of the cubit is correct.
   test('initial state should be GetUserProfilesState.initial()', () {
     // Assert
     expect(cubit.state, GetUserProfilesState.initial());
@@ -47,6 +54,11 @@ void main() {
   ];
 
   group('getUserProfiles', () {
+    /// Tests that the cubit emits the correct states when data is loaded successfully.
+    ///
+    /// Expected state transitions:
+    /// 1. Initial state with isLoading=true
+    /// 2. State with profiles loaded and isLoading=false
     blocTest<GetUserProfilesCubit, GetUserProfilesState>(
       'should emit [loading, loaded] when data is gotten successfully',
       build: () {
@@ -67,6 +79,11 @@ void main() {
       },
     );
 
+    /// Tests that the cubit emits the correct states when an error occurs.
+    ///
+    /// Expected state transitions:
+    /// 1. Initial state with isLoading=true
+    /// 2. State with error=true, error message, and isLoading=false
     blocTest<GetUserProfilesCubit, GetUserProfilesState>(
       'should emit [loading, error] when getting data fails',
       build: () {

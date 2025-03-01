@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entities/user_profile.dart';
 
+/// Model class for [UserProfile] that extends the entity and adds
+/// JSON serialization/deserialization capabilities.
+///
+/// This model is used for data transfer between the application and
+/// external data sources (API, local storage, etc.).
 class UserProfileModel extends UserProfile {
+  /// Creates a new [UserProfileModel] with the same properties as [UserProfile].
   const UserProfileModel({
     required super.id,
     required super.name,
@@ -18,6 +24,10 @@ class UserProfileModel extends UserProfile {
     super.borderColor,
   });
 
+  /// Creates a [UserProfileModel] from a JSON map.
+  ///
+  /// This factory constructor converts a JSON map to a [UserProfileModel] instance,
+  /// handling the conversion of primitive types to the appropriate model types.
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
     return UserProfileModel(
       id: json['id'],
@@ -35,6 +45,10 @@ class UserProfileModel extends UserProfile {
     );
   }
 
+  /// Converts this [UserProfileModel] to a JSON map.
+  ///
+  /// This method is used when sending data to external sources or
+  /// when storing the model in local storage.
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -52,6 +66,9 @@ class UserProfileModel extends UserProfile {
     };
   }
 
+  /// Parses a string status to a [ProfileStatus] enum value.
+  ///
+  /// If the status string is not recognized, it defaults to [ProfileStatus.unverified].
   static ProfileStatus _parseStatus(String status) {
     switch (status) {
       case 'verified':
@@ -65,6 +82,7 @@ class UserProfileModel extends UserProfile {
     }
   }
 
+  /// Converts a [ProfileStatus] enum value to its string representation.
   static String _statusToString(ProfileStatus status) {
     switch (status) {
       case ProfileStatus.verified:

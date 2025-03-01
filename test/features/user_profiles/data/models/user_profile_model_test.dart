@@ -3,6 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:strichpunkt/features/user_profiles/data/models/user_profile_model.dart';
 import 'package:strichpunkt/features/user_profiles/domain/entities/user_profile.dart';
 
+/// Tests for the [UserProfileModel] class.
+///
+/// These tests verify that the [UserProfileModel] correctly:
+/// - Extends the [UserProfile] entity
+/// - Converts from JSON to model instances
+/// - Converts from model instances to JSON
+/// - Handles different profile status values
 void main() {
   final tUserProfileModel = UserProfileModel(
     id: '1',
@@ -19,12 +26,14 @@ void main() {
     borderColor: Colors.transparent,
   );
 
+  /// Verifies that [UserProfileModel] is a subclass of [UserProfile].
   test('should be a subclass of UserProfile entity', () {
     // Assert
     expect(tUserProfileModel, isA<UserProfile>());
   });
 
   group('fromJson', () {
+    /// Tests that [UserProfileModel.fromJson] correctly parses a valid JSON structure.
     test(
       'should return a valid model when the JSON has the correct structure',
       () {
@@ -52,6 +61,13 @@ void main() {
       },
     );
 
+    /// Tests that [UserProfileModel.fromJson] correctly parses different status values.
+    ///
+    /// This test verifies:
+    /// - 'verified' is parsed as [ProfileStatus.verified]
+    /// - 'unverified' is parsed as [ProfileStatus.unverified]
+    /// - 'pending' is parsed as [ProfileStatus.pending]
+    /// - Unknown values default to [ProfileStatus.unverified]
     test(
       'should return the correct status when parsing different status values',
       () {
@@ -136,6 +152,7 @@ void main() {
   });
 
   group('toJson', () {
+    /// Tests that [UserProfileModel.toJson] correctly converts the model to JSON.
     test('should return a JSON map containing the proper data', () {
       // Act
       final result = tUserProfileModel.toJson();
@@ -162,6 +179,7 @@ void main() {
       // Add additional assertions for other fields if needed
     });
 
+    /// Tests that [UserProfileModel.toJson] correctly converts different status values to strings.
     test('should convert all status types correctly', () {
       // Arrange
       final verifiedProfile = UserProfileModel(

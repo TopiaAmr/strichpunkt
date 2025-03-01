@@ -2,6 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:strichpunkt/features/user_profiles/data/datasources/user_profile_remote_data_source.dart';
 import 'package:strichpunkt/features/user_profiles/domain/entities/user_profile.dart';
 
+/// Tests for the [UserProfileRemoteDataSourceMockImpl] class.
+///
+/// These tests verify that the mock remote data source:
+/// - Returns a list of user profiles
+/// - Contains the expected profile data
 void main() {
   late UserProfileRemoteDataSourceMockImpl dataSource;
 
@@ -10,6 +15,8 @@ void main() {
   });
 
   group('getUserProfiles', () {
+    /// Tests that the remote data source returns a list of user profiles
+    /// with the expected data.
     test('should return a list of UserProfile models', () async {
       // Act
       final result = await dataSource.getUserProfiles();

@@ -24,6 +24,16 @@ test/
                 └── get_user_profiles_cubit_test.dart
 ```
 
+## Documentation
+
+All test files include dartdoc comments that explain:
+
+- The purpose of each test file
+- What functionality is being tested
+- The expected behavior for each test case
+
+This documentation helps developers understand the tests and makes it easier to maintain them over time.
+
 ## Running Tests
 
 To run all the tests for the user profiles feature, use the following command:
