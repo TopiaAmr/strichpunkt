@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:strichpunkt/core/util/app_router.dart';
 import 'core/theme/app_theme.dart';
 
@@ -12,11 +13,16 @@ class MyApp extends StatelessWidget {
   final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Strichpunkt',
-      theme: AppTheme.themeData,
-      routerConfig: _appRouter.config(),
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(393, 910),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp.router(
+        title: 'Strichpunkt',
+        theme: AppTheme.themeData,
+        routerConfig: _appRouter.config(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:strichpunkt/core/enum/nav_item_enum.dart';
 import 'package:strichpunkt/core/theme/app_theme.dart';
 import 'package:strichpunkt/core/util/app_router.gr.dart';
-
 
 @RoutePage()
 class MainScreen extends StatefulWidget {
@@ -40,16 +40,19 @@ class _MainScreenState extends State<MainScreen> {
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
           type: BottomNavigationBarType.fixed,
-          enableFeedback: false,
+          enableFeedback: true,
           elevation: 0,
-          items: _navItems
-              .asMap()
-              .entries
-              .map((entry) => _buildNavItem(
-                    entry.value,
-                    tabsRouter.activeIndex == entry.key,
-                  ))
-              .toList(),
+          items:
+              _navItems
+                  .asMap()
+                  .entries
+                  .map(
+                    (entry) => _buildNavItem(
+                      entry.value,
+                      tabsRouter.activeIndex == entry.key,
+                    ),
+                  )
+                  .toList(),
         );
       },
     );
@@ -68,11 +71,15 @@ class _MainScreenState extends State<MainScreen> {
 
     // Try to load SVG, fallback to material icon if not found
     try {
-      return SvgPicture.asset(
-        item.iconPath,
-        colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-        height: 24,
-        width: 24,
+      return Container(
+        margin: EdgeInsets.only(bottom: 6.h),
+        child: SvgPicture.asset(
+          item.iconPath,
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+          height: 24.r,
+          width: 24.r,
+          fit: BoxFit.contain,
+        ),
       );
     } catch (e) {
       // If SVG loading fails, use fallback icon
