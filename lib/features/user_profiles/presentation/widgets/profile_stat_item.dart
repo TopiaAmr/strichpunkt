@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class ProfileStatItem extends StatelessWidget {
@@ -20,15 +21,16 @@ class ProfileStatItem extends StatelessWidget {
       children: [
         Icon(
           icon,
-          size: 16,
+          size: 16.r,
           color: AppTheme.primaryColor,
         ),
-        const SizedBox(width: 4),
+        SizedBox(width: 4.w),
         Text(
           '$count $label',
-          style: const TextStyle(
-            fontSize: 12,
+          style: TextStyle(
+            fontSize: 12.sp,
             fontWeight: FontWeight.w500,
+            color: AppTheme.textPrimaryColor,
           ),
         ),
       ],

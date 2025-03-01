@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../domain/entities/user_profile.dart';
 
 class StatusBadge extends StatelessWidget {
   final ProfileStatus status;
 
-  const StatusBadge({
-    super.key,
-    required this.status,
-  });
+  const StatusBadge({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: _getStatusColor().withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -26,15 +21,18 @@ class StatusBadge extends StatelessWidget {
             style: TextStyle(
               color: _getStatusColor(),
               fontWeight: FontWeight.w500,
-              fontSize: 12,
+              fontSize: 12.sp,
             ),
           ),
-          const SizedBox(width: 4),
-          Icon(
-            _getStatusIcon(),
-            color: _getStatusColor(),
-            size: 14,
-          ),
+          SizedBox(width: 4.w),
+          if (status != ProfileStatus.pending)
+            Icon(_getStatusIcon(), color: _getStatusColor(), size: 14.r)
+          else
+            SvgPicture.asset(
+              'assets/icons/pending_icon.svg',
+              height: 14.r,
+              width: 14.r,
+            ),
         ],
       ),
     );
@@ -43,11 +41,11 @@ class StatusBadge extends StatelessWidget {
   Color _getStatusColor() {
     switch (status) {
       case ProfileStatus.verified:
-        return AppTheme.accentColor;
+        return Colors.white; // Green
       case ProfileStatus.unverified:
-        return AppTheme.errorColor;
+        return const Color(0xFFE57373); // Red
       case ProfileStatus.pending:
-        return AppTheme.pendingColor;
+        return const Color(0xFF9E9E9E); // Gray
     }
   }
 
@@ -56,7 +54,7 @@ class StatusBadge extends StatelessWidget {
       case ProfileStatus.verified:
         return 'Verified';
       case ProfileStatus.unverified:
-        return 'unverified';
+        return 'Unverified';
       case ProfileStatus.pending:
         return 'Pending';
     }

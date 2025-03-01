@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/user_profile.dart';
 import 'profile_avatar.dart';
@@ -23,12 +24,10 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
-        color: profile.isCurrentlyInUse 
-            ? AppTheme.accentColor.withValues(alpha: 0.05) 
-            : AppTheme.cardColor,
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -37,13 +36,20 @@ class ProfileCard extends StatelessWidget {
           ),
         ],
       ),
+      padding: EdgeInsets.all(8.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildProfileHeader(),
-          const SizedBox(height: 8),
+          if (profile.status != ProfileStatus.verified)
+            Padding(
+              padding: const EdgeInsets.only(bottom:8.0),
+              child: Divider(height: 12.h, thickness: 0.5, color: AppTheme.grayColor),
+            )
+          else
+            SizedBox(height: 12.h),
           _buildProfileStats(),
-          const SizedBox(height: 8),
+          Divider(height: 12.h, thickness: 1, color: AppTheme.grayColor),
           _buildActionButtons(),
         ],
       ),
@@ -51,25 +57,38 @@ class ProfileCard extends StatelessWidget {
   }
 
   Widget _buildProfileHeader() {
-    return Padding(
-      padding: const EdgeInsets.all(12),
+    final isVerified = profile.status == ProfileStatus.verified;
+    return Container(
+      decoration: BoxDecoration(
+        color: isVerified ? AppTheme.verifiedColor : Colors.white,
+        borderRadius: BorderRadius.circular(16.r),
+      ),
+      padding: EdgeInsets.all(8.r),
       child: Row(
         children: [
-          ProfileAvatar(imageUrl: profile.avatarUrl, size: 50),
-          const SizedBox(width: 12),
+          ProfileAvatar(imageUrl: profile.avatarUrl, size: 48.r),
+          SizedBox(width: 12.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   profile.name,
-                  style: AppTheme.bodyStyle.copyWith(
-                    fontWeight: FontWeight.bold,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color:
+                        isVerified ? Colors.white : AppTheme.textPrimaryColor,
                   ),
                 ),
+                SizedBox(height: 2.h),
                 Text(
-                  'SVN: ${profile.svnNumber}',
-                  style: AppTheme.captionStyle,
+                  'SVN:${profile.svnNumber}',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color:
+                        isVerified ? Colors.white : AppTheme.textSecondaryColor,
+                  ),
                 ),
               ],
             ),
@@ -81,90 +100,94 @@ class ProfileCard extends StatelessWidget {
   }
 
   Widget _buildProfileStats() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
-        children: [
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildRelationStat(),
+        SizedBox(width: 16.w),
+        if (profile.relation == 'Me') ...[
           ProfileStatItem(
-            icon: Icons.person,
-            label: profile.relation,
-            count: 0,
+            icon: Icons.link,
+            label: 'Connect',
+            count: profile.connectCount,
           ),
-          const SizedBox(width: 16),
-          if (profile.connectCount > 0)
-            ProfileStatItem(
-              icon: Icons.link,
-              label: 'Connect',
-              count: profile.connectCount,
-            ),
-          const SizedBox(width: 16),
-          if (profile.medicineCount > 0)
-            ProfileStatItem(
-              icon: Icons.medication,
-              label: 'Medicine',
-              count: profile.medicineCount,
-            ),
-          const SizedBox(width: 16),
-          if (profile.consultCount > 0)
-            ProfileStatItem(
-              icon: Icons.medical_services,
-              label: 'Consult',
-              count: profile.consultCount,
-            ),
+          SizedBox(width: 16.w),
         ],
-      ),
+        ProfileStatItem(
+          icon: Icons.medication,
+          label: 'Medicine',
+          count: profile.medicineCount,
+        ),
+        SizedBox(width: 16.w),
+        ProfileStatItem(
+          icon: Icons.medical_services,
+          label: 'Consult',
+          count: profile.consultCount,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRelationStat() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.person, size: 16.r, color: AppTheme.primaryColor),
+        SizedBox(width: 4.w),
+        Text(
+          profile.relation,
+          style: TextStyle(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+            color: AppTheme.textPrimaryColor,
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildActionButtons() {
     if (profile.isCurrentlyInUse) {
-      return Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Expanded(
-              child: ProfileActionButton(
-                actionType: ProfileActionType.connection,
-                onPressed: onConnection,
-              ),
+      return Row(
+        children: [
+          Expanded(
+            child: ProfileActionButton(
+              actionType: ProfileActionType.connection,
+              onPressed: onConnection,
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: ProfileActionButton(
-                actionType: ProfileActionType.edit,
-                onPressed: onEdit,
-              ),
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: ProfileActionButton(
+              actionType: ProfileActionType.edit,
+              onPressed: onEdit,
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: ProfileActionButton(
-                actionType: ProfileActionType.currentlyUse,
-                onPressed: () {},
-              ),
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: ProfileActionButton(
+              actionType: ProfileActionType.currentlyUse,
             ),
-          ],
-        ),
+          ),
+        ],
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Expanded(
-              child: ProfileActionButton(
-                actionType: ProfileActionType.edit,
-                onPressed: onEdit,
-              ),
+      return Row(
+        children: [
+          Expanded(
+            child: ProfileActionButton(
+              actionType: ProfileActionType.edit,
+              onPressed: onEdit,
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: ProfileActionButton(
-                actionType: ProfileActionType.switchProfile,
-                onPressed: onSwitchProfile,
-              ),
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: ProfileActionButton(
+              actionType: ProfileActionType.switchProfile,
+              onPressed: onSwitchProfile,
             ),
-          ],
-        ),
+          ),
+        ],
       );
     }
   }

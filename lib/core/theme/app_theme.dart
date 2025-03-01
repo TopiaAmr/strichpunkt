@@ -7,6 +7,7 @@ class AppTheme {
   static const Color accentColor = Color(0xFFD6E3FF);
   static const Color errorColor = Color(0xFFE57373);
   static const Color pendingColor = Color(0xFFE2E2E9);
+  static const Color verifiedColor = Color(0xFF10B981);
 
   // Background Colors
   static const Color backgroundColor = Color(0xFFF5F5F5);
@@ -15,6 +16,7 @@ class AppTheme {
   // Text Colors
   static const Color textPrimaryColor = Color(0xff43474E);
   static const Color textSecondaryColor = Color(0xFF757575);
+  static const Color grayColor = Color(0xFFE2E2E9);
 
   // Navigation Colors
   static const Color navInactiveColor = Color(0xFFBDBDBD);
