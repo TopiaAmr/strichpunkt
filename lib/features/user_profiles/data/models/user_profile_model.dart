@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../domain/entities/user_profile.dart';
 
 class UserProfileModel extends UserProfile {
@@ -12,6 +14,8 @@ class UserProfileModel extends UserProfile {
     required super.medicineCount,
     required super.consultCount,
     required super.isCurrentlyInUse,
+    required super.showBorder,
+    required super.borderColor,
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,8 @@ class UserProfileModel extends UserProfile {
       medicineCount: json['medicineCount'],
       consultCount: json['consultCount'],
       isCurrentlyInUse: json['isCurrentlyInUse'],
+      showBorder: json['showBorder'],
+      borderColor: Color(json['borderColor']),
     );
   }
 
@@ -41,6 +47,8 @@ class UserProfileModel extends UserProfile {
       'medicineCount': medicineCount,
       'consultCount': consultCount,
       'isCurrentlyInUse': isCurrentlyInUse,
+      'showBorder': showBorder,
+      'borderColor': borderColor,
     };
   }
 

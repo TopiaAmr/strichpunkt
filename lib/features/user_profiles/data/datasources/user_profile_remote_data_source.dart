@@ -1,3 +1,4 @@
+import 'package:strichpunkt/core/theme/app_theme.dart';
 import 'package:strichpunkt/features/user_profiles/domain/entities/user_profile.dart';
 
 abstract class UserProfileRemoteDataSource {
@@ -33,6 +34,8 @@ class UserProfileRemoteDataSourceMockImpl
         medicineCount: 5,
         consultCount: 0,
         isCurrentlyInUse: false,
+        showBorder: true,
+        borderColor: AppTheme.primaryColor,
       ),
       UserProfile(
         id: '3',
@@ -45,6 +48,8 @@ class UserProfileRemoteDataSourceMockImpl
         medicineCount: 9,
         consultCount: 3,
         isCurrentlyInUse: false,
+        showBorder: true,
+        borderColor: AppTheme.secondaryColor,
       ),
     ];
   }

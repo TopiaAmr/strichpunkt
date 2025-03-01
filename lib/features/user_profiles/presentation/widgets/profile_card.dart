@@ -70,7 +70,12 @@ class ProfileCard extends StatelessWidget {
       padding: EdgeInsets.all(8.r),
       child: Row(
         children: [
-          ProfileAvatar(imageUrl: profile.avatarUrl, size: 48.r),
+          ProfileAvatar(
+            imageUrl: profile.avatarUrl,
+            size: 48.r,
+            showBorder: profile.showBorder,
+            borderColor: profile.borderColor,
+          ),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(
@@ -134,11 +139,7 @@ class ProfileCard extends StatelessWidget {
           );
         } else {
           // Otherwise use Wrap for smaller screens
-          return Wrap(
-            spacing: 16.w,
-            runSpacing: 8.h,
-            children: statItems,
-          );
+          return Wrap(spacing: 16.w, runSpacing: 8.h, children: statItems);
         }
       },
     );

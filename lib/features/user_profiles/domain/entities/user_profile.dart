@@ -1,10 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart' show Color, Colors;
 
-enum ProfileStatus {
-  verified,
-  unverified,
-  pending,
-}
+enum ProfileStatus { verified, unverified, pending }
 
 class UserProfile extends Equatable {
   final String id;
@@ -17,6 +14,8 @@ class UserProfile extends Equatable {
   final int medicineCount;
   final int consultCount;
   final bool isCurrentlyInUse;
+  final bool showBorder;
+  final Color borderColor;
 
   const UserProfile({
     required this.id,
@@ -29,19 +28,23 @@ class UserProfile extends Equatable {
     required this.medicineCount,
     required this.consultCount,
     required this.isCurrentlyInUse,
+    this.showBorder = false,
+    this.borderColor = Colors.transparent,
   });
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        svnNumber,
-        avatarUrl,
-        relation,
-        status,
-        connectCount,
-        medicineCount,
-        consultCount,
-        isCurrentlyInUse,
-      ];
+    id,
+    name,
+    svnNumber,
+    avatarUrl,
+    relation,
+    status,
+    connectCount,
+    medicineCount,
+    consultCount,
+    isCurrentlyInUse,
+    showBorder,
+    borderColor,
+  ];
 }
