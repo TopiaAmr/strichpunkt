@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/user_profile.dart';
 import 'profile_avatar.dart';
@@ -113,17 +114,17 @@ class ProfileCard extends StatelessWidget {
       _buildRelationStat(),
       if (profile.relation == 'Me')
         ProfileStatItem(
-          icon: Icons.link,
+          svgPath: 'assets/icons/connection.svg',
           label: 'Connect',
           count: profile.connectCount,
         ),
       ProfileStatItem(
-        icon: Icons.medication,
+        svgPath: 'assets/icons/medication.svg',
         label: 'Medicine',
         count: profile.medicineCount,
       ),
       ProfileStatItem(
-        icon: Icons.medical_services,
+        svgPath: 'assets/icons/calendar_with_timer.svg',
         label: 'Consult',
         count: profile.consultCount,
       ),
@@ -152,7 +153,15 @@ class ProfileCard extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.person, size: 16.r, color: AppTheme.primaryColor),
+            SvgPicture.asset(
+              'assets/icons/family_member.svg',
+              width: 16.r,
+              height: 16.r,
+              colorFilter: ColorFilter.mode(
+                AppTheme.primaryColor,
+                BlendMode.srcIn,
+              ),
+            ),
             SizedBox(width: 4.w),
             Text(
               profile.relation,
