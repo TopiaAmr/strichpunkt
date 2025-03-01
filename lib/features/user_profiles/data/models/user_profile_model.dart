@@ -14,8 +14,8 @@ class UserProfileModel extends UserProfile {
     required super.medicineCount,
     required super.consultCount,
     required super.isCurrentlyInUse,
-    required super.showBorder,
-    required super.borderColor,
+    super.showBorder,
+    super.borderColor,
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
