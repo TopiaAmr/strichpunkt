@@ -17,7 +17,7 @@ class ProfileStatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the text scale factor to account for accessibility settings
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    final textScaleFactor = MediaQuery.of(context).textScaler.scale(1);
     
     return Flexible(
       child: FittedBox(

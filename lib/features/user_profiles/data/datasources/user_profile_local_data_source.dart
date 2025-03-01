@@ -1,7 +1,12 @@
+import 'package:strichpunkt/features/user_profiles/domain/entities/user_profile.dart';
+
 abstract class UserProfileLocalDataSource {
-  // Define local data source methods here
+  Future<List<UserProfile>> getUserProfiles();
 }
 
 class UserProfileLocalDataSourceImpl implements UserProfileLocalDataSource {
-  // Implement local data source methods here
+  @override
+  Future<List<UserProfile>> getUserProfiles() async{
+    return [];
+  }
 }

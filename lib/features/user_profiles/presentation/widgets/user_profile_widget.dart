@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:strichpunkt/features/user_profiles/presentation/cubits/get_user_profiles_cubit.dart';
+import 'package:strichpunkt/features/user_profiles/presentation/cubits/get_user_profiles_state.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../domain/entities/user_profile.dart';
 import '../../../../core/presentation/widgets/outlined_btn_widget.dart';
 import 'profiles_list.dart';
 
@@ -9,75 +11,48 @@ class UserProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // This would normally come from the BLoC, but for UI demo we'll use mock data
-    final mockProfiles = [
-      UserProfile(
-        id: '1',
-        name: 'Matthew Brian',
-        svnNumber: '123 456 789',
-        avatarUrl: 'assets/images/avatar1.png',
-        relation: 'Me',
-        status: ProfileStatus.verified,
-        connectCount: 2,
-        medicineCount: 11,
-        consultCount: 2,
-        isCurrentlyInUse: true,
-      ),
-      UserProfile(
-        id: '2',
-        name: 'Matthew Brian',
-        svnNumber: '123 456 789',
-        avatarUrl: 'assets/images/avatar2.png',
-        relation: 'My Father',
-        status: ProfileStatus.unverified,
-        connectCount: 0,
-        medicineCount: 5,
-        consultCount: 0,
-        isCurrentlyInUse: false,
-      ),
-      UserProfile(
-        id: '3',
-        name: 'Erica Jason',
-        svnNumber: '123 456 789',
-        avatarUrl: 'assets/images/avatar3.png',
-        relation: 'My mother',
-        status: ProfileStatus.pending,
-        connectCount: 0,
-        medicineCount: 9,
-        consultCount: 3,
-        isCurrentlyInUse: false,
-      ),
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profiles', style: AppTheme.headingStyle),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: OutlinedButtonWidget(
-              label: "Add New",
-              icon: Icons.add,
-              onPressed: () {
-                // Handle add new profile
-              },
-            ),
+    return BlocBuilder<GetUserProfilesCubit, GetUserProfilesState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Profiles', style: AppTheme.headingStyle),
+            actions: [
+              if (!state.isLoading && !state.isError)
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: OutlinedButtonWidget(
+                    label: "Add New",
+                    icon: Icons.add,
+                    onPressed: () {
+                      // Handle add new profile
+                    },
+                  ),
+                ),
+            ],
+            elevation: 0,
           ),
-        ],
-        elevation: 0,
-      ),
-      body: ProfilesList(
-        profiles: mockProfiles,
-        onEdit: (profile) {
-          // Handle edit profile
-        },
-        onSwitchProfile: (profile) {
-          // Handle switch profile
-        },
-        onConnection: (profile) {
-          // Handle connection
-        },
-      ),
+          body: Builder(
+            builder: (context) {
+              if (state.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state.isError) return Center(child: Text(state.message));
+              return ProfilesList(
+                profiles: state.profiles,
+                onEdit: (profile) {
+                  // Handle edit profile
+                },
+                onSwitchProfile: (profile) {
+                  // Handle switch profile
+                },
+                onConnection: (profile) {
+                  // Handle connection
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

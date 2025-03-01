@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:strichpunkt/core/util/app_router.dart';
+import 'package:strichpunkt/core/util/injection_container.dart';
 import 'core/theme/app_theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(MyApp());
 }
 
