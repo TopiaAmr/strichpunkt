@@ -15,6 +15,11 @@ class AppTheme {
   static const Color textPrimaryColor = Color(0xFF212121);
   static const Color textSecondaryColor = Color(0xFF757575);
   
+  // Navigation Colors
+  static const Color navInactiveColor = Color(0xFFBDBDBD);
+  static const Color navActiveColor = Color(0xFF5C6BC0); // Indigo color from the design
+  static const Color navBackgroundColor = Colors.white;
+  
   // Text Styles
   static const TextStyle headingStyle = TextStyle(
     fontSize: 24,
@@ -36,6 +41,11 @@ class AppTheme {
   static const TextStyle captionStyle = TextStyle(
     fontSize: 14,
     color: textSecondaryColor,
+  );
+  
+  static const TextStyle navLabelStyle = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
   );
   
   // Button Styles
@@ -90,6 +100,17 @@ class AppTheme {
       titleLarge: subheadingStyle,
       bodyLarge: bodyStyle,
       bodyMedium: captionStyle,
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: navBackgroundColor,
+      selectedItemColor: navActiveColor,
+      unselectedItemColor: navInactiveColor,
+      selectedLabelStyle: navLabelStyle,
+      unselectedLabelStyle: navLabelStyle,
+      type: BottomNavigationBarType.fixed,
+      elevation: 8,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
     ),
   );
 }

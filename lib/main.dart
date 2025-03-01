@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Strichpunkt',
       theme: AppTheme.themeData,
       routerConfig: _appRouter.config(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
