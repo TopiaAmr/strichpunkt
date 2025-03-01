@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/theme/app_theme.dart';
 
 enum ProfileActionType { connection, edit, currentlyUse, switchProfile }
 
@@ -48,31 +49,31 @@ class ProfileActionButton extends StatelessWidget {
       case ProfileActionType.connection:
         return Colors.white;
       case ProfileActionType.edit:
-        return const Color(0xFFD6E3FF); // Light blue background
+        return AppTheme.editBackgroundColor;
       case ProfileActionType.currentlyUse:
-        return const Color(0xFFE8F5E9); // Light green background
+        return AppTheme.currentlyUseBackgroundColor;
       case ProfileActionType.switchProfile:
-        return const Color(0xFF3F5F90); // Dark blue background
+        return AppTheme.primaryColor;
     }
   }
 
   Color _getForegroundColor() {
     switch (actionType) {
       case ProfileActionType.connection:
-        return const Color(0xFF3F5F90); // Dark blue text
+        return AppTheme.primaryColor;
       case ProfileActionType.edit:
-        return const Color(0xFF3F5F90); // Dark blue text
+        return AppTheme.primaryColor;
       case ProfileActionType.currentlyUse:
-        return const Color(0xFF4CAF50); // Green text
+        return AppTheme.currentlyUseTextColor;
       case ProfileActionType.switchProfile:
-        return Colors.white; // White text
+        return Colors.white;
     }
   }
 
   BorderSide _getBorderSide() {
     switch (actionType) {
       case ProfileActionType.connection:
-        return const BorderSide(color: Color(0xFF3F5F90)); // Dark blue border
+        return BorderSide(color: AppTheme.primaryColor);
       case ProfileActionType.edit:
         return BorderSide.none;
       case ProfileActionType.currentlyUse:

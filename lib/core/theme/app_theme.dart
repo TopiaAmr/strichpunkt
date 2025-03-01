@@ -24,6 +24,11 @@ class AppTheme {
     0xFF5C6BC0,
   ); // Indigo color from the design
   static const Color navBackgroundColor = Colors.white;
+  
+  // Button Colors
+  static const Color currentlyUseBackgroundColor = Color(0xFFE8F5E9);
+  static const Color currentlyUseTextColor = Color(0xFF4CAF50);
+  static const Color editBackgroundColor = accentColor; // Using existing accentColor
 
   // Text Styles
   static TextStyle headingStyle = TextStyle(

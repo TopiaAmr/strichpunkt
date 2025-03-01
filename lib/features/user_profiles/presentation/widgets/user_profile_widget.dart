@@ -57,6 +57,7 @@ class UserProfileWidget extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16),
             child: OutlinedButtonWidget(
               label: "Add New",
+              icon: Icons.add,
               onPressed: () {
                 // Handle add new profile
               },

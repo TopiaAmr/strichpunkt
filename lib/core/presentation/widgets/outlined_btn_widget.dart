@@ -38,7 +38,7 @@ class OutlinedButtonWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (icon != null) ...[
-              Icon(icon, size: 16.r),
+              Icon(icon, size: 16.sp),
               SizedBox(width: 4.w),
             ],
             Text(

@@ -16,24 +16,34 @@ class ProfileStatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          size: 16.r,
-          color: AppTheme.primaryColor,
+    // Get the text scale factor to account for accessibility settings
+    final textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    
+    return Flexible(
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: (16 * textScaleFactor).r,
+              color: AppTheme.primaryColor,
+            ),
+            SizedBox(width: 4.w),
+            Text(
+              '$count $label',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color: AppTheme.textPrimaryColor,
+              ),
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+            ),
+          ],
         ),
-        SizedBox(width: 4.w),
-        Text(
-          '$count $label',
-          style: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w500,
-            color: AppTheme.textPrimaryColor,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -43,8 +43,12 @@ class ProfileCard extends StatelessWidget {
           _buildProfileHeader(),
           if (profile.status != ProfileStatus.verified)
             Padding(
-              padding: const EdgeInsets.only(bottom:8.0),
-              child: Divider(height: 12.h, thickness: 0.5, color: AppTheme.grayColor),
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Divider(
+                height: 12.h,
+                thickness: 0.5,
+                color: AppTheme.grayColor,
+              ),
             )
           else
             SizedBox(height: 12.h),
@@ -100,49 +104,68 @@ class ProfileCard extends StatelessWidget {
   }
 
   Widget _buildProfileStats() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildRelationStat(),
-        SizedBox(width: 16.w),
-        if (profile.relation == 'Me') ...[
-          ProfileStatItem(
-            icon: Icons.link,
-            label: 'Connect',
-            count: profile.connectCount,
-          ),
-          SizedBox(width: 16.w),
-        ],
+    final statItems = <Widget>[
+      _buildRelationStat(),
+      if (profile.relation == 'Me')
         ProfileStatItem(
-          icon: Icons.medication,
-          label: 'Medicine',
-          count: profile.medicineCount,
+          icon: Icons.link,
+          label: 'Connect',
+          count: profile.connectCount,
         ),
-        SizedBox(width: 16.w),
-        ProfileStatItem(
-          icon: Icons.medical_services,
-          label: 'Consult',
-          count: profile.consultCount,
-        ),
-      ],
+      ProfileStatItem(
+        icon: Icons.medication,
+        label: 'Medicine',
+        count: profile.medicineCount,
+      ),
+      ProfileStatItem(
+        icon: Icons.medical_services,
+        label: 'Consult',
+        count: profile.consultCount,
+      ),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // If we have enough width, use Row with spaceBetween
+        if (constraints.maxWidth >= 300.w) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: statItems,
+          );
+        } else {
+          // Otherwise use Wrap for smaller screens
+          return Wrap(
+            spacing: 16.w,
+            runSpacing: 8.h,
+            children: statItems,
+          );
+        }
+      },
     );
   }
 
   Widget _buildRelationStat() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(Icons.person, size: 16.r, color: AppTheme.primaryColor),
-        SizedBox(width: 4.w),
-        Text(
-          profile.relation,
-          style: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w500,
-            color: AppTheme.textPrimaryColor,
-          ),
+    return Flexible(
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.person, size: 16.r, color: AppTheme.primaryColor),
+            SizedBox(width: 4.w),
+            Text(
+              profile.relation,
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color: AppTheme.textPrimaryColor,
+              ),
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
