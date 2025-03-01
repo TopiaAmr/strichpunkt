@@ -4,6 +4,7 @@ import 'package:strichpunkt/core/util/app_router.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -17,12 +18,14 @@ class MyApp extends StatelessWidget {
       designSize: const Size(393, 910),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp.router(
-        title: 'Strichpunkt',
-        theme: AppTheme.themeData,
-        routerConfig: _appRouter.config(),
-        debugShowCheckedModeBanner: false,
-      ),
+      builder: (_, __) {
+        return MaterialApp.router(
+          title: 'Strichpunkt',
+          theme: AppTheme.themeData,
+          routerConfig: _appRouter.config(),
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

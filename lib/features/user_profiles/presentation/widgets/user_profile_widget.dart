@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/user_profile.dart';
-import 'add_profile_button.dart';
+import '../../../../core/presentation/widgets/outlined_btn_widget.dart';
 import 'profiles_list.dart';
 
 class UserProfileWidget extends StatelessWidget {
@@ -50,16 +50,13 @@ class UserProfileWidget extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
-        title: Text(
-          'Profiles',
-          style: AppTheme.headingStyle,
-        ),
+        title: Text('Profiles', style: AppTheme.headingStyle),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: AddProfileButton(
+            child: OutlinedButtonWidget(
+              label: "Add New",
               onPressed: () {
                 // Handle add new profile
               },
@@ -67,7 +64,6 @@ class UserProfileWidget extends StatelessWidget {
           ),
         ],
         elevation: 0,
-        backgroundColor: AppTheme.backgroundColor,
       ),
       body: ProfilesList(
         profiles: mockProfiles,

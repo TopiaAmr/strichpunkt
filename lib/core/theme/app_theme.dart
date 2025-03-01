@@ -1,73 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTheme {
   // Primary Colors
-  static const Color primaryColor = Color(0xFF2196F3);
-  static const Color accentColor = Color(0xFF4CAF50);
+  static const Color primaryColor = Color(0xFF3F5F90);
+  static const Color accentColor = Color(0xFFD6E3FF);
   static const Color errorColor = Color(0xFFE57373);
-  static const Color pendingColor = Color(0xFFFFB74D);
-  
+  static const Color pendingColor = Color(0xFFE2E2E9);
+
   // Background Colors
   static const Color backgroundColor = Color(0xFFF5F5F5);
   static const Color cardColor = Color(0xFFFFFFFF);
-  
+
   // Text Colors
-  static const Color textPrimaryColor = Color(0xFF212121);
+  static const Color textPrimaryColor = Color(0xff43474E);
   static const Color textSecondaryColor = Color(0xFF757575);
-  
+
   // Navigation Colors
   static const Color navInactiveColor = Color(0xFFBDBDBD);
-  static const Color navActiveColor = Color(0xFF5C6BC0); // Indigo color from the design
+  static const Color navActiveColor = Color(
+    0xFF5C6BC0,
+  ); // Indigo color from the design
   static const Color navBackgroundColor = Colors.white;
-  
+
   // Text Styles
-  static const TextStyle headingStyle = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
+  static TextStyle headingStyle = TextStyle(
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w400,
     color: textPrimaryColor,
   );
-  
-  static const TextStyle subheadingStyle = TextStyle(
-    fontSize: 20,
+
+  static TextStyle subheadingStyle = TextStyle(
+    fontSize: 20.sp,
     fontWeight: FontWeight.w600,
     color: textPrimaryColor,
   );
-  
-  static const TextStyle bodyStyle = TextStyle(
-    fontSize: 16,
+
+  static TextStyle bodyStyle = TextStyle(
+    fontSize: 16.sp,
     color: textPrimaryColor,
   );
-  
-  static const TextStyle captionStyle = TextStyle(
-    fontSize: 14,
+
+  static TextStyle captionStyle = TextStyle(
+    fontSize: 14.sp,
     color: textSecondaryColor,
   );
-  
-  static const TextStyle navLabelStyle = TextStyle(
-    fontSize: 12,
+
+  static TextStyle navLabelStyle = TextStyle(
+    fontSize: 12.sp,
     fontWeight: FontWeight.w500,
   );
-  
+
   // Button Styles
   static ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
     backgroundColor: primaryColor,
     foregroundColor: Colors.white,
     elevation: 0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
   );
-  
+
   static ButtonStyle secondaryButtonStyle = OutlinedButton.styleFrom(
     foregroundColor: primaryColor,
     side: const BorderSide(color: primaryColor),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
   );
-  
+
   // Theme Data
   static ThemeData themeData = ThemeData(
     primaryColor: primaryColor,
@@ -85,23 +84,17 @@ class AppTheme {
     cardTheme: CardTheme(
       color: cardColor,
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: primaryButtonStyle,
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: secondaryButtonStyle,
-    ),
-    textTheme: const TextTheme(
+    elevatedButtonTheme: ElevatedButtonThemeData(style: primaryButtonStyle),
+    outlinedButtonTheme: OutlinedButtonThemeData(style: secondaryButtonStyle),
+    textTheme: TextTheme(
       headlineMedium: headingStyle,
       titleLarge: subheadingStyle,
       bodyLarge: bodyStyle,
       bodyMedium: captionStyle,
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: navBackgroundColor,
       selectedItemColor: navActiveColor,
       unselectedItemColor: navInactiveColor,
