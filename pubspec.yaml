@@ -53,6 +53,7 @@ dependencies:
   flutter_svg: ^2.0.17
   flutter_screenutil: ^5.9.3
   custom_refresh_indicator: ^4.0.1
+  skeletonizer: ^1.4.3
 
 dev_dependencies:
   flutter_test:
