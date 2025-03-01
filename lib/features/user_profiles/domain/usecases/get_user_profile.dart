@@ -9,9 +9,9 @@ class GetUserProfile {
 
   GetUserProfile(this.repository);
 
-  Future<Either<Failure, UserProfile>> call(Params params) async {
+  Future<Either<Failure, UserProfile?>> call(Params params) async {
     // Implementation will be added later
-    return Right(UserProfile());
+    return Right(null);
   }
 }
 

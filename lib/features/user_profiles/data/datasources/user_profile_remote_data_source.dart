@@ -1,5 +1,3 @@
-import '../models/user_profile_model.dart';
-
 abstract class UserProfileRemoteDataSource {
   // Define remote data source methods here
 }
