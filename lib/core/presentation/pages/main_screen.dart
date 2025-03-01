@@ -36,23 +36,29 @@ class _MainScreenState extends State<MainScreen> {
       lazyLoad: true,
       resizeToAvoidBottomInset: true,
       bottomNavigationBuilder: (_, tabsRouter) {
-        return BottomNavigationBar(
-          currentIndex: tabsRouter.activeIndex,
-          onTap: tabsRouter.setActiveIndex,
-          type: BottomNavigationBarType.fixed,
-          enableFeedback: true,
-          elevation: 0,
-          items:
-              _navItems
-                  .asMap()
-                  .entries
-                  .map(
-                    (entry) => _buildNavItem(
-                      entry.value,
-                      tabsRouter.activeIndex == entry.key,
-                    ),
-                  )
-                  .toList(),
+        return Theme(
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            currentIndex: tabsRouter.activeIndex,
+            onTap: tabsRouter.setActiveIndex,
+            type: BottomNavigationBarType.fixed,
+            enableFeedback: true,
+            elevation: 0,
+            items:
+                _navItems
+                    .asMap()
+                    .entries
+                    .map(
+                      (entry) => _buildNavItem(
+                        entry.value,
+                        tabsRouter.activeIndex == entry.key,
+                      ),
+                    )
+                    .toList(),
+          ),
         );
       },
     );
